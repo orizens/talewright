@@ -1,0 +1,29 @@
+{
+  "name": "@orizens/playwright-biz",
+  "version": "0.0.1",
+  "description": "write plain english playwright code with automated steps wrapper and bdd perspective dsl",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "exports:check": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "ci": "npm run build && npm run format:check && npm run exports:check"
+  },
+  "author": "Oren Farhi",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.4",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.10",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "peerDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
