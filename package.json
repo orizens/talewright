@@ -1,6 +1,6 @@
 {
   "name": "talewright",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Talewright is a Given-When-Then syntax testing library for Playwright, enabling clear, human-readable end-to-end tests that flow like a story.",
   "main": "dist/index.js",
   "scripts": {
