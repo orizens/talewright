@@ -12,11 +12,11 @@ npm install talewright
 
 ```ts
 
-const test = base.extend<PlaywrightBizFixtures>({
-    ...playwrightBizFixtures(),
+const test = base.extend<TalewrightFixtures>({
+    ...talewrightFixtures(),
 });
 
-test("simple test to verify PlaywrightBiz", async ({ page, When, Given, Then, I }) => {
+test("simple test to verify Talewright", async ({ page, When, Given, Then, I }) => {
   await Given.I.openUrl("https://github.com");
   await Then.I.seeText("Build and ship");
   await When.I.clickLink("Try GitHub Copilot");
@@ -27,11 +27,15 @@ test("simple test to verify PlaywrightBiz", async ({ page, When, Given, Then, I 
 });
 ```
 
-
 ## Features
 - **Readable syntax**: Write tests like a story using `Given`, `When`, and `Then`
 - **Full Playwright support**: Built on top of Playwright’s API
 - **Clear assertions**: Use `Then.I.seeText()` and `When.I.clickLink()` for intuitive interactions
+- **Creates `test.step()` for each command**: so it is easy to see it in playwrights traceview - so the generated report is similar to the code you write.
+
+## Trace View 
+![./images/traceview.png](./images/traceview.png)
+
 
 ## API
 

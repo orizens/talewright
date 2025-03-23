@@ -76,7 +76,7 @@ export function configureFixture(page: Page, prefix: BDD_PREFIX) {
 function createNewI(page: Page) {
   return new I(page);
 }
-export interface PlaywrightBizFixtures {
+export interface TalewrightFixtures {
   Given: ReturnType<typeof configureFixture>;
   When: ReturnType<typeof configureFixture>;
   Then: ReturnType<typeof configureFixture>;
@@ -84,7 +84,7 @@ export interface PlaywrightBizFixtures {
   But: ReturnType<typeof configureFixture>;
   I: ReturnType<typeof createNewI>;
 }
-export function playwrightBizFixtures () {
+export function talewrightFixtures () {
   return prefix.reduce((acc, prefix) => ({
     ...acc,
     [prefix]: async ({ page }: { page: Page; }, use: any) => {
@@ -96,5 +96,5 @@ export function playwrightBizFixtures () {
       const fixture = createNewI(page);
       await use(fixture);
     }
-  }) as unknown as PlaywrightBizFixtures;
+  }) as unknown as TalewrightFixtures;
 }
