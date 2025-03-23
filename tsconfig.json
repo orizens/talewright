@@ -26,6 +26,7 @@
     "declaration": true,
 
     /* AND if you're building for a library in a monorepo: */
-    "declarationMap": true
-  }
+    "declarationMap": true,
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -43,9 +43,9 @@ export function createStepProxy(target: I, prefix: BDD_PREFIX) {
               const innerValue = innerTarget[innerProp] as never;
               if (typeof innerValue === "function") {
                 return async function (...args: never[]) {
-                  return test.step(`${prefix} I ${innerProp as never} ${args.join(
+                  return test.step(`${prefix} I ${innerProp as never} "${args.join(
                     ", "
-                  )}`, async () => {
+                  )}"`, async () => {
                     return (innerValue as Function).apply(innerTarget, args);
                   });
                 };
@@ -70,23 +70,31 @@ export function configurePlaywrightFixture(page: Page) {
 }
 
 export function configureFixture(page: Page, prefix: BDD_PREFIX) {
-  const instance = new I(page);
-  return createStepProxy(instance, prefix);
+  return createStepProxy(createNewI(page), prefix);
 }
 
+function createNewI(page: Page) {
+  return new I(page);
+}
 export interface PlaywrightBizFixtures {
   Given: ReturnType<typeof configureFixture>;
   When: ReturnType<typeof configureFixture>;
   Then: ReturnType<typeof configureFixture>;
   And: ReturnType<typeof configureFixture>;
   But: ReturnType<typeof configureFixture>;
+  I: ReturnType<typeof createNewI>;
 }
 export function playwrightBizFixtures () {
   return prefix.reduce((acc, prefix) => ({
     ...acc,
-    [prefix]: async ({ page }: { page: Page }, use: any) => {
-      const fixture = configureFixture(page, 'Given');
+    [prefix]: async ({ page }: { page: Page; }, use: any) => {
+      const fixture = configureFixture(page, prefix);
       await use(fixture);
     },
-  }), {}) as PlaywrightBizFixtures;
+  }), {
+    I: async ({ page }: { page: Page; }, use: any) => {
+      const fixture = createNewI(page);
+      await use(fixture);
+    }
+  }) as unknown as PlaywrightBizFixtures;
 }

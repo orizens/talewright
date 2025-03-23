@@ -1,14 +1,15 @@
 {
-  "name": "@orizens/playwright-biz",
+  "name": "talewright",
   "version": "0.0.1",
-  "description": "write plain english playwright code with automated steps wrapper and bdd perspective dsl",
+  "description": "Talewright is a Given-When-Then syntax testing library for Playwright, enabling clear, human-readable end-to-end tests that flow like a story.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "exports:check": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
-    "ci": "npm run build && npm run format:check && npm run exports:check"
+    "ci": "npm run build && npm run format:check && npm run exports:check",
+    "test:ui": "npx playwright test --ui"
   },
   "author": "Oren Farhi",
   "license": "MIT",
@@ -25,5 +26,70 @@
   },
   "peerDependencies": {
     "@playwright/test": "^1.49.0"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "ansi-escapes": "^7.0.0",
+    "ansi-regex": "^6.1.0",
+    "ansi-styles": "^4.3.0",
+    "any-promise": "^1.3.0",
+    "chalk": "^4.1.2",
+    "char-regex": "^1.0.2",
+    "cjs-module-lexer": "^1.4.3",
+    "cli-highlight": "^2.1.11",
+    "cli-table3": "^0.6.5",
+    "cliui": "^7.0.4",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "commander": "^10.0.1",
+    "emoji-regex": "^8.0.0",
+    "emojilib": "^2.4.0",
+    "environment": "^1.1.0",
+    "escalade": "^3.2.0",
+    "fflate": "^0.8.2",
+    "fsevents": "^2.3.2",
+    "get-caller-file": "^2.0.5",
+    "has-flag": "^4.0.0",
+    "highlight.js": "^10.7.3",
+    "is-fullwidth-code-point": "^3.0.0",
+    "lru-cache": "^10.4.3",
+    "marked": "^9.1.6",
+    "marked-terminal": "^7.3.0",
+    "mz": "^2.7.0",
+    "node-emoji": "^2.2.0",
+    "object-assign": "^4.1.1",
+    "parse5": "^5.1.1",
+    "parse5-htmlparser2-tree-adapter": "^6.0.1",
+    "playwright": "^1.51.1",
+    "playwright-core": "^1.51.1",
+    "require-directory": "^2.1.1",
+    "semver": "^7.7.1",
+    "skin-tone": "^2.0.0",
+    "string-width": "^4.2.3",
+    "strip-ansi": "^6.0.1",
+    "supports-color": "^7.2.0",
+    "supports-hyperlinks": "^3.2.0",
+    "thenify": "^3.3.1",
+    "thenify-all": "^1.6.0",
+    "undici-types": "^6.20.0",
+    "unicode-emoji-modifier-base": "^1.0.0",
+    "validate-npm-package-name": "^5.0.1",
+    "wrap-ansi": "^7.0.0",
+    "y18n": "^5.0.8",
+    "yargs": "^16.2.0",
+    "yargs-parser": "^20.2.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orizens/talewright.git"
+  },
+  "keywords": [
+    "playwright",
+    "bdd",
+    "tdd"
+  ],
+  "bugs": {
+    "url": "https://github.com/orizens/talewright/issues"
+  },
+  "homepage": "https://github.com/orizens/talewright#readme"
 }
