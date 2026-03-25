@@ -4,23 +4,24 @@ import { I } from "./I.js";
 
 export type BDD_PREFIX = 'Given' | 'When' | 'Then' | 'And' | 'But';
 
-export function createStepProxy(target: I, prefix: BDD_PREFIX) {
+export function createStepProxy(target: I, prefix: BDD_PREFIX): { I: I } {
   return new Proxy(
     { I: target },
     {
-      get(target: never, prop, receiver) {
-        const value = target?.[prop] as never;
+      get(obj: { I: I }, prop: string | symbol) {
+        const value = obj[prop as keyof typeof obj];
         if (typeof value === "object" && value !== null) {
-          return new Proxy(value, {
-            get(innerTarget, innerProp) {
-              const innerValue = innerTarget[innerProp] as never;
+          return new Proxy(value as unknown as Record<string | symbol, unknown>, {
+            get(innerTarget: Record<string | symbol, unknown>, innerProp: string | symbol) {
+              const innerValue = innerTarget[innerProp];
               if (typeof innerValue === "function") {
-                return async function (...args: never[]) {
-                  return test.step(`${prefix} I ${innerProp as never} "${args.join(
-                    ", "
-                  )}"`, async () => {
-                    return (innerValue as Function).apply(innerTarget, args);
-                  });
+                return async function (...args: unknown[]) {
+                  return test.step(
+                    `${prefix} I ${String(innerProp)} "${args.join(", ")}"`,
+                    async () => {
+                      return (innerValue as (...a: unknown[]) => unknown).apply(innerTarget, args);
+                    }
+                  );
                 };
               }
               return innerValue;
@@ -30,7 +31,7 @@ export function createStepProxy(target: I, prefix: BDD_PREFIX) {
         return value;
       },
     }
-  );
+  ) as { I: I };
 }
 
 export function createNewI(page: Page) {

@@ -1,9 +1,9 @@
-import type { Page } from 'playwright-core';
-import { expect } from 'playwright/test';
+import type { Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 type CommandOptions = {
   position?: number;
-  timeout: number;
+  timeout?: number;
 }
 export class I {
   #page: Page;
